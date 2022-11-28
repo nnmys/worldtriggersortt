@@ -1,0 +1,494 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<title>월드 트리거 캐릭터 소트</title>
+<script type="text/javascript">
+<!--
+//*********************************************************
+//
+// ?価するメンバ?の名前のリスト
+//
+// この部分を変更して下さい。名前の削除・追加も可?です。
+// 名前を引用符(")で括り、コン?(,)で区切って下さい。
+// 但し、リストの最後にはコン?を入れてはいけません。
+//
+//*********************************************************
+var namMember = new Array(
+
+"<img src=> <br>쿠가 유마 (타마코마 제2 부대 어태커</br>",
+"<img src=> <br>미쿠모 오사무 (타마코마 제2 부대 슈터)</br>",
+"<img src=> <br>휴스 (타마코마 제2 부대 어태커)</br>",
+"<img src=> <br>우사미 시오리 (타마코마 제2 부대 오퍼레이터)</br>",
+"<img src=> <br>카라스마 쿄스케 (타마코마 제1 부대 올라운더)</br>",
+"<img src=> <br>코나미 키리에 (타마코마 제1 부대 어태커)</br>",
+"<img src=> <br>키자키 레이지 (타마코마 제1 부대 올라운더)</br>",
+"<img src=> <br>린도 유리 (타마코마 제1 부대 오퍼레이터)</br>",
+"<img src=> <br>진 유이치 (타마코마 지부 어태커)</br>",
+"<img src=> <br>린도 요타로</br>",
+"<img src=> <br>미카엘 크로닌</br>",
+"<img src=> <br>시노다 루카</br>",
+"<img src=> <br>레플리카</br>",
+"<img src=> <br>키도 마사무네 (본부 수뇌부)</br>",
+"<img src=> <br>시노다 마사후미 (본부 수뇌부)</br>",
+"<img src=> <br>사와무라 쿄코 (본부 수뇌부)</br>",
+"<img src=> <br>린도 타쿠미 (본부 수뇌부)</br>",
+"<img src=> <br>네츠키 에이조 (본부 수뇌부)</br>",
+"<img src=> <br>키누타 모토키치 (본부 수뇌부)</br>",
+"<img src=> <br>카라사와 카츠미 (본부 수뇌부)</br>",
+"<img src=> <br>아모 츠키히코</br>",
+"<img src=> <br>타치카와 케이 (타치카와 부대 어태커)</br>",
+"<img src=> <br>이즈미 코헤이 (타치카와 부대 슈터)</br>",
+"<img src=> <br>유이가 타케루 (타치카와 부대 거너)</br>",
+"<img src=> <br>쿠니치카 유우 (타치카와 부대 오퍼레이터)</br>",
+"<img src=> <br>후유시마 신지 (후유시마 부대 트래퍼)</br>",
+"<img src=> <br>토마 이사미 (후유시마 부대 스나이퍼)</br>",
+"<img src=> <br>마키 리사 (후유시마 부대 오퍼레이터)</br>",
+"<img src=> <br>카자마 소야 (카자마 부대 어태커)</br>",
+"<img src=> <br>우타가와 료 (카자마 부대 올라운더)</br>",
+"<img src=> <br>키쿠치하라 시로 (카자마 부대 어태커)</br>",
+"<img src=> <br>미카미 카호 (카자마 부대 오퍼레이터)</br>",
+"<img src=> <br>쿠사카베 사키 (쿠사카베 부대 오퍼레이터)</br>",
+"<img src=> <br>미도리카와 슌 (쿠사카베 부대 어태커)</br>",
+"<img src=> <br>사토미 카즈마 (쿠사카베 부대 거너)</br>",
+"<img src=> <br>사에키 류지 (쿠사카베 부대 올라운더)</br>",
+"<img src=> <br>우노 하야토 (쿠사카베 부대 스나이퍼)</br>",
+"<img src=> <br>아라시야마 쥰 (아라시야마 부대 올라운더)</br>",
+"<img src=> <br>토키에다 미츠루 (아라시야마 부대 올라운더)</br>",
+"<img src=> <br>키토라 아이 (아라시야마 부대 올라운더)</br>",
+"<img src=> <br>사토리 켄 (아라시야마 부대 스나이퍼)</br>",
+"<img src=> <br>아야츠지 하루카 (아라시야마 부대 오퍼레이터)</br>",
+"<img src=> <br>카코 노조미 (카코 부대 슈터)</br>",
+"<img src=> <br>쿠로에 후타바 (카코 부대 어태커)</br>",
+"<img src=> <br>키타가와 마이 (카코 부대 트래퍼)</br>",
+"<img src=> <br>코바야카와 안 (카코 부대 오퍼레이터)</br>",
+"<img src=> <br>미와 슈지 (미와 부대 올라운더)</br>",
+"<img src=> <br>요네야 요스케 (미와 부대 어태커)</br>",
+"<img src=> <br>나라사카 토오루 (미와 부대 스나이퍼)</br>",
+"<img src=> <br>코데라 쇼헤이 (미와 부대 스나이퍼)</br>",
+"<img src=> <br>츠키미 렌 (미와 부대 오퍼레이터)</br>",
+"<img src=> <br>카타기리 타카아키 (카타기리 부대 거너)</br>",
+"<img src=> <br>이치죠 유키마루 (카타기리 부대 어태커)</br>",
+"<img src=> <br>모모조노 토이치로 (카타기리 부대 스나이퍼)</br>",
+"<img src=> <br>아마쿠라 아스미 (카타기리 부대 스포터)</br>",
+"<img src=> <br>유이츠카 카린 (카타기리 부대 오퍼레이터)</br>",
+"<img src=> <br>니노미야 마사타카 (니노미야 부대 슈터)</br>",
+"<img src=> <br>이누카이 스미하루 (니노미야 부대 거너)</br>",
+"<img src=> <br>츠지 신노스케 (니노미야 부대 어태커)</br>",
+"<img src=> <br>히야미 아키 (니노미야 부대 오퍼레이터)</br>",
+"<img src=> <br>카게우라 마사토 (카게우라 부대 어태커)</br>",
+"<img src=> <br>키타조에 히로 (카게우라 부대 거너)</br>",
+"<img src=> <br>에마 유즈루 (카게우라 부대 스나이퍼)</br>",
+"<img src=> <br>니레 히카리 (카게우라 부대 오퍼레이터)</br>",
+"<img src=> <br>이코마 타츠히토 (이코마 부대 어태커)</br>",
+"<img src=> <br>미즈카미 사토시 (이코마 부대 슈터)</br>",
+"<img src=> <br>오키 코지 (이코마 부대 스나이퍼)</br>",
+"<img src=> <br>미나미사와 카이 (이코마 부대 어태커)</br>",
+"<img src=> <br>호소이 마오리 (이코마 부대 오퍼레이터)</br>",
+"<img src=> <br>오지 카즈아키 (오지 부대 어태커)</br>",
+"<img src=> <br>쿠라우치 카즈키 (오지 부대 슈터)</br>",
+"<img src=> <br>카시오 유타카 (오지 부대 어태커)</br>",
+"<img src=> <br>킷타카 하야 (오지 부대 오퍼레이터)</br>",
+"<img src=> <br>아즈마 하루아키 (아즈마 부대 스나이퍼)</br>",
+"<img src=> <br>코아라이 노보루 (아즈마 부대 어태커)</br>",
+"<img src=> <br>오쿠데라 츠네유키 (아즈마 부대 어태커)</br>",
+"<img src=> <br>히토미 마코 (아즈마 부대 오퍼레이터)</br>",
+"<img src=> <br>나스 레이 (나스 부대 슈터)</br>",
+"<img src=> <br>쿠마가이 유코 (나스 부대 어태커)</br>",
+"<img src=> <br>히우라 아카네 (나스 부대 스나이퍼)</br>",
+"<img src=> <br>시키 사요코 (나스 부대 오퍼레이터)</br>",
+"<img src=> <br>유바 타쿠마 (유바 부대 거너)</br>",
+"<img src=> <br>오비시마 유카리 (유바 부대 올라운더)</br>",
+"<img src=> <br>토노오카 카즈토 (유바 부대 스나이퍼)</br>",
+"<img src=> <br>후지마루 노노 (유바 부대 오퍼레이터)</br>",
+"<img src=> <br>칸다 타다오미 (전 유바 부대)</br>",
+"<img src=> <br>하토하라 미라이 (전 니노미야 부대)</br>",
+"<img src=> <br>쿠루마 타츠야 (스즈나리 제1 부대 거너)</br>",
+"<img src=> <br>무라카미 코우 (스즈나리 제1 부대 어태커)</br>",
+"<img src=> <br>베츠야쿠 타이치 (스즈나리 제1 부대 스나이퍼)</br>",
+"<img src=> <br>콘 유카 (스즈나리 제1 부대 오퍼레이터)</br>",
+"<img src=> <br>아라후네 테츠지 (아라후네 부대 스나이퍼)</br>",
+"<img src=> <br>호카리 아츠시 (아라후네 부대 스나이퍼)</br>",
+"<img src=> <br>한자키 요사토 (아라후네 부대 스나이퍼)</br>",
+"<img src=> <br>카가미 린 (아라후네 부대 오퍼레이터)</br>",
+"<img src=> <br>카토리 요코 (카토리 부대 올라운더)</br>",
+"<img src=> <br>미우라 유타 (카토리 부대 어태커)</br>",
+"<img src=> <br>와카무라 로쿠로 (카토리 부대 거너)</br>",
+"<img src=> <br>소메이 하나 (카토리 부대 오퍼레이터)</br>",
+"<img src=> <br>스와 코타로 (스와 부대 거너)</br>",
+"<img src=> <br>츠츠미 다이치 (스와 부대 거너)</br>",
+"<img src=> <br>사사모리 히사토 (스와 부대 어태커)</br>",
+"<img src=> <br>오사노 루이 (스와 부대 오퍼레이터)</br>",
+"<img src=> <br>카키자키 쿠니하루 (카키자키 부대 올라운더)</br>",
+"<img src=> <br>테루야 후미카 (카키자키 부대 올라운더)</br>",
+"<img src=> <br>토모에 코타로 (카키자키 부대 거너)</br>",
+"<img src=> <br>우이 마도카 (카키자키 부대 오퍼레이터)</br>",
+"<img src=> <br>우루시마 와타루 (우루시마 부대 거너)</br>",
+"<img src=> <br>로쿠타 리카 (우루시마 부대 오퍼레이터)</br>",
+"<img src=> <br>타케토미 사쿠라코 (에비나 부대 오퍼레이터)</br>",
+"<img src=> <br>챠노 마코토 (챠노 부대 거너)</br>",
+"<img src=> <br>후지사와 이츠키 (챠노 부대 거너)</br>",
+"<img src=> <br>토쿠라 메구미 (챠노 부대 오퍼레이터)</br>",
+"<img src=> <br>코다 테루테루 (코다 부대 슈터)</br>",
+"<img src=> <br>사오토메 후미후미 (코다 부대 슈터)</br>",
+"<img src=> <br>히노에 히데히데 (코다 부대 어태커)</br>",
+"<img src=> <br>나츠메 이즈호</br>",
+"<img src=> <br>모가미 소이치</br>",
+"<img src=> <br>미즈누마 세이지</br>",
+"<img src=> <br>테라시마 라이조</br>",
+"<img src=> <br>카자마 신</br>",
+"<img src=> <br>쿠가 유고</br>",
+"<img src=> <br>라이몬도 (카루와리아)</br>",
+"<img src=> <br>이즈카챠 (카루와리아)</br>",
+"<img src=> <br>비타노 (카루와리아)</br>",
+"<img src=> <br>하이레인 (아프토크라톨)</br>",
+"<img src=> <br>람바네인 (아프토크라톨)</br>",
+"<img src=> <br>에네도라 (아프토크라톨)</br>",
+"<img src=> <br>비자 (아프토크라톨)</br>",
+"<img src=> <br>미라 (아프토크라톨)</br>",
+"<img src=> <br>가트린 (갈로플라)</br>",
+"<img src=> <br>코스케로 (갈로플라)</br>",
+"<img src=> <br>웬 소 (갈로플라)</br>",
+"<img src=> <br>레긴데츠 (갈로플라)</br>",
+"<img src=> <br>라타리코프 (갈로플라)</br>",
+"<img src=> <br>요미 (갈로플라)</br>",
+"<img src=> <br>기브 (에르가테스)</br>",
+"<img src=> <br>카로 (에르가테스)</br>",
+"<img src=> <br>제노 (에르가테스)</br>",
+"<img src=> <br>릴리스 (에르가테스)</br>",
+"<img src=> <br>라미아 (에르가테스)</br>",
+"<img src=> <br>아마토리 린지</br>",
+"<img src=> <br>하루카와 아오바</br>",
+"<img src=> <br>미쿠모 카스미</br>",
+"<img src=> <br>아라시야마 사호</br>",
+"<img src=> <br>아라시야마 후쿠</br>"
+
+
+
+
+
+
+
+);
+//*********************************************************
+
+var lstMember = new Array();
+var parent = new Array();
+var equal = new Array();
+var rec = new Array();
+var cmp1,cmp2;
+var head1,head2;
+var nrec;
+
+var numQuestion;
+var totalSize;
+var finishSize;
+var finishFlag;
+
+//変数の初期化+++++++++++++++++++++++++++++++++++++++++++++
+function initList(){
+var n = 0;
+var mid;
+var i;
+
+//??トすべき配列
+lstMember[n] = new Array();
+for (i=0; i<namMember.length; i++) {
+lstMember[n][i] = i;
+}
+parent[n] = -1;
+totalSize = 0;
+n++;
+
+for (i=0; i<lstMember.length; i++) {
+//要素数が２以上なら２分割し、
+//分割された配列をlstMemberの最後に加える
+if(lstMember[i].length>=2) {
+mid = Math.ceil(lstMember[i].length/2);
+lstMember[n] = new Array();
+lstMember[n] = lstMember[i].slice(0,mid);
+totalSize += lstMember[n].length;
+parent[n] = i;
+n++;
+lstMember[n] = new Array();
+lstMember[n] = lstMember[i].slice(mid,lstMember[i].length);
+totalSize += lstMember[n].length;
+parent[n] = i;
+n++;
+}
+}
+
+//保存用配列
+for (i=0; i<namMember.length; i++) {
+rec[i] = 0;
+}
+nrec = 0;
+
+//引き分けの結果を保存するリスト
+//キ?：リンク始?の値
+// 値 ：リンク終?の値
+for (i=0; i<=namMember.length; i++) {
+equal[i] = -1;
+}
+
+cmp1 = lstMember.length-2;
+cmp2 = lstMember.length-1;
+head1 = 0;
+head2 = 0;
+numQuestion = 1;
+finishSize = 0;
+finishFlag = 0;
+}
+
+//リストの??ト+++++++++++++++++++++++++++++++++++++++++++
+//flag：比較結果
+//  -1：左を選択
+//   0：引き分け
+//   1：右を選択
+function sortList(flag){
+var i;
+var str;
+
+//recに保存
+if (flag<0) {
+rec[nrec] = lstMember[cmp1][head1];
+head1++;
+nrec++;
+finishSize++;
+while (equal[rec[nrec-1]]!=-1) {
+rec[nrec] = lstMember[cmp1][head1];
+head1++;
+nrec++;
+finishSize++;
+}
+}
+else if (flag>0) {
+rec[nrec] = lstMember[cmp2][head2];
+head2++;
+nrec++;
+finishSize++;
+while (equal[rec[nrec-1]]!=-1) {
+rec[nrec] = lstMember[cmp2][head2];
+head2++;
+nrec++;
+finishSize++;
+}
+}
+else {
+rec[nrec] = lstMember[cmp1][head1];
+head1++;
+nrec++;
+finishSize++;
+while (equal[rec[nrec-1]]!=-1) {
+rec[nrec] = lstMember[cmp1][head1];
+head1++;
+nrec++;
+finishSize++;
+}
+equal[rec[nrec-1]] = lstMember[cmp2][head2];
+rec[nrec] = lstMember[cmp2][head2];
+head2++;
+nrec++;
+finishSize++;
+while (equal[rec[nrec-1]]!=-1) {
+rec[nrec] = lstMember[cmp2][head2];
+head2++;
+nrec++;
+finishSize++;
+}
+}
+
+//片方のリストを走査し終えた後の処理
+if (head1<lstMember[cmp1].length && head2==lstMember[cmp2].length) {
+//リストcmp2が走査済 - リストcmp1の残りをコピ?
+while (head1<lstMember[cmp1].length){
+rec[nrec] = lstMember[cmp1][head1];
+head1++;
+nrec++;
+finishSize++;
+}
+}
+else if (head1==lstMember[cmp1].length && head2<lstMember[cmp2].length) {
+//リストcmp1が走査済 - リストcmp2の残りをコピ?
+while (head2<lstMember[cmp2].length){
+rec[nrec] = lstMember[cmp2][head2];
+head2++;
+nrec++;
+finishSize++;
+}
+}
+
+//両方のリストの最後に到達した場合は
+//親リストを更新する
+if (head1==lstMember[cmp1].length && head2==lstMember[cmp2].length) {
+for (i=0; i<lstMember[cmp1].length+lstMember[cmp2].length; i++) {
+lstMember[parent[cmp1]][i] = rec[i];
+}
+lstMember.pop();
+lstMember.pop();
+cmp1 = cmp1-2;
+cmp2 = cmp2-2;
+head1 = 0;
+head2 = 0;
+
+//新しい比較を行う前にrecを初期化
+if (head1==0 && head2==0) {
+for (i=0; i<namMember.length; i++) {
+rec[i] = 0;
+}
+nrec = 0;
+}
+}
+
+if (cmp1<0) {
+str = "Battle No."+(numQuestion-1)+"<br>"+Math.floor(finishSize*100/totalSize)+"% sorted.";
+document.getElementById("battleNumber").innerHTML = str;
+
+showResult();
+finishFlag = 1;
+}
+else {
+showImage();
+}
+}
+
+//結果の?示+++++++++++++++++++++++++++++++++++++++++++++++
+function showResult() {
+var ranking = 1;
+var sameRank = 1;
+var str = "";
+var i;
+
+str += "<table style=\"width:200px; font-size:12px; line-height:120%; margin-left:auto; margin-right:auto; border:1px solid #000; border-collapse:collapse\" align=\"center\">";
+str += "<tr><td style=\"color:#ffffff; background-color:#000; text-align:center;\">순위<\/td><td style=\"color:#ffffff; background-color:#000; text-align:center;\">이름<\/td><\/tr>";
+
+for (i=0; i<namMember.length; i++) {
+str += "<tr><td style=\"border:1px solid #000; text-align:right; padding-right:5px;\">"+ranking+"<\/td><td style=\"border:1px solid #000; padding-left:5px;\">"+namMember[lstMember[0][i]]+"<\/td><\/tr>";
+if (i<namMember.length-1) {
+if (equal[lstMember[0][i]]==lstMember[0][i+1]) {
+sameRank++;
+} else {
+ranking += sameRank;
+sameRank = 1;
+}
+}
+}
+str += "<\/table>";
+
+document.getElementById("resultField").innerHTML = str;
+}
+
+//比較する２つ要素の?示+++++++++++++++++++++++++++++++++++
+function showImage() {
+var str0 = "Battle No."+numQuestion+"<br>"+Math.floor(finishSize*100/totalSize)+"% sorted.";
+var str1 = ""+toNameFace(lstMember[cmp1][head1]);
+var str2 = ""+toNameFace(lstMember[cmp2][head2]);
+
+document.getElementById("battleNumber").innerHTML = str0;
+document.getElementById("leftField").innerHTML = str1;
+document.getElementById("rightField").innerHTML = str2;
+
+numQuestion++;
+}
+
+//数値を名前（顔文字）に変換+++++++++++++++++++++++++++++++
+function toNameFace(n){
+var str = namMember[n];
+
+//顔文字を追加する場合は以下のコメントアウトを外す
+//namMemberのインデックスと矛盾しないように注意
+/*
+str += "<br>────<br>";
+switch(n) {
+//case -1 はサンプルなので削除すること
+case -1: str+="（ ´∀｀）";break;
+default: str+=""+n;
+}
+*/
+return str;
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+/**********************************************************
+
+ ?のス?イルを変更する場合はここを編集してください。
+
+**********************************************************/
+#mainTable{
+font-size: 12px;
+font-family: '돋움',sans-serif;
+text-align: center;
+vertical-align: middle;
+width: 410px;
+margin-left: auto;
+margin-right: auto;
+border-collapse: separate;
+border-spacing: 10px 5px;
+}
+#leftField{
+width: 120px;
+height: 150px;
+border: 1px solid #000;
+}
+#rightField{
+width: 120px;
+height: 150px;
+border: 1px solid #000;
+}
+.middleField{
+width: 120px;
+height: 70px;
+border: 1px solid #000;
+}
+//-->
+<!--
+A{
+  text-decoration : none;
+}
+-->
+<!--
+a:hover{color:#99ccff;}
+-->
+</style>
+<meta name="generator" content="Namo WebEditor(Trial)">
+<meta http-equiv="content-type" content="text/html; charset=utf-8"></head>
+
+<body text="#000000" bgcolor="#ffffff" link="#0099ff" vlink="#0099ff" alink="#0099ff">
+<table id="mainTable" align="center">
+<tr>
+        <td id="battleNumber" colspan="3" style="padding-bottom: 10px;">
+            <p>&nbsp;</p>
+        </td>
+</tr>
+<tr>
+<td id="leftField" onClick="if(finishFlag==0)sortList(-1);" rowspan="2">
+&nbsp;
+</td>
+<td class="middleField" onClick="if(finishFlag==0)sortList(0);">
+둘 다 좋다
+</td>
+<td id="rightField" onClick="if(finishFlag==0)sortList(1);" rowspan="2">
+</td>
+</tr>
+<tr>
+<td class="middleField" onClick="if(finishFlag==0)sortList(0);">
+모르겠다
+</td>
+</tr>
+</table><br><br>
+<div id="resultField" style="text-align:center;">
+    <p><font size="2" face="돋움"><span style="">타임라인 테스트용</font></p>
+
+</div>
+<script type="text/javascript">
+<!--
+initList();
+showImage();
+//-->
+</script>
+
+</body>
+</html>
